@@ -18,4 +18,9 @@ export class ProjectListComponent {
   deleteProject(project: any) {
     this.projects = this.projects.filter((el: any) => el.id !== project.id);
   }
+
+  showProject: Boolean = false;
+  toggleproject() {
+    this.showProject = !this.showProject;
+  }
 }
