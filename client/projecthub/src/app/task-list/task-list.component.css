@@ -1,0 +1,22 @@
+.projectTitle {
+  display: flex;
+  gap: 20px;
+  padding-left: 40px;
+}
+.btn1 {
+  height: 20px;
+  width: 20px;
+  border-radius: 50px;
+  border-color: blueviolet;
+  margin-top: 17px;
+}
+.projects {
+  margin: 0px;
+}
+.name {
+  color: blueviolet;
+}
+.lists {
+  margin-left: 50px;
+  /* border: 1px solid red; */
+}

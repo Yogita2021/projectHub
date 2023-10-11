@@ -1,9 +1,142 @@
-<h1>Project list</h1>
-<button (click)="toggleproject()">show Project</button>
-<div *ngIf="showProject">
-  <div *ngFor="let project of projects">
-    <h5>{{ project.name }}</h5>
-    <p>{{ project.description }}</p>
-    <button (click)="deleteProject(project)">Delete project</button>
+<div class="mainProjectContainer">
+  <div id="ProjectTitles">
+    <div class="projectTitle">
+      <button class="btn1" (click)="toggleProject()">></button>
+      <h3>Projects...</h3>
+      <button class="btn1"><a routerLink="addproject">+</a></button>
+    </div>
+    <div class="projects" *ngIf="showProject">
+      <div
+        class="lists"
+        *ngFor="let project of projects"
+        (click)="selectProject(project)"
+      >
+        <ul>
+          <li class="name">{{ project.name }}</li>
+        </ul>
+      </div>
+    </div>
+    <!-- team -->
+    <div class="projectTitle">
+      <button class="btn1" (click)="toggleTeam()">></button>
+      <h3>Teams...</h3>
+      <button class="btn1"><a routerLink="addteam">+</a></button>
+    </div>
+    <div class="projects" *ngIf="showTeams">
+      <div class="lists" *ngFor="let team of teams" (click)="selectTeams(team)">
+        <ul>
+          <li class="name">{{ team.teamName }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="selected-project" *ngIf="selectedProject">
+    <h1>📝{{ selectedProject.name }}</h1>
+    <p><b>Project Description: </b>{{ selectedProject.description }}</p>
+    <p>
+      <b>Start Date: </b> {{ selectedProject.startDate | date : "yyyy-MM-dd" }}
+    </p>
+    <div *ngIf="selectedTeams">
+      <b>Selected Team: </b> {{ selectedTeams.teamName }}
+    </div>
+
+    <p><b>End Date: </b>{{ selectedProject.endDate | date : "yyyy-MM-dd" }}</p>
+    <button (click)="toggleTaskForm()">Add Task</button>
+    <!-- Add Task Form -->
+    <!-- <app-task-management *ngIf="showTaskForm"></app-task-management> -->
+    <div class="task-form" *ngIf="showTaskForm">
+      <form [formGroup]="taskForm">
+        <table>
+          <thead>
+            <tr>
+              <th *ngFor="let key of schemaKeys">{{ key }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  formControlName="title"
+                  type="text"
+                  placeholder="Enter task"
+                />
+              </td>
+              <td>
+                <input
+                  formControlName="description"
+                  type="text"
+                  placeholder="description"
+                />
+              </td>
+              <td><input formControlName="dueDate" type="date" /></td>
+              <td>
+                <select formControlName="priority">
+                  <option value="">Priority</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </td>
+              <td>
+                <select formControlName="status">
+                  <option value="">Status</option>
+                  <option value="todo">To Do</option>
+                  <option value="inprogress">In Progress</option>
+                  <option value="done">Done</option>
+                </select>
+              </td>
+
+              <td>
+                <select formControlName="assignedUser">
+                  <option value="">Users</option>
+                  <option *ngFor="let user of userList" [value]="user._id">
+                    {{ user.name }}
+                  </option>
+                </select>
+              </td>
+
+              <td>
+                <button (click)="onSubmit()">Submit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+    <!-- Display other details of the selected project here -->
+
+    <div class="task-list">
+      <p>Task List</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Assigned Team Members</th>
+            <th>Sub-Tasks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of alltasks">
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.dueDate | date : "yyyy-MM-dd" }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.status }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let member of task.assignedUser">
+                  {{ member.name }}
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -1,0 +1,44 @@
+<form [formGroup]="taskForm">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let key of schemaKeys">{{ key }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input formControlName="title" type="text" /></td>
+        <td><input formControlName="description" type="text" /></td>
+        <td><input formControlName="dueDate" type="date" /></td>
+        <td>
+          <select formControlName="priority">
+            <option value="">Priority</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </td>
+        <td>
+          <select formControlName="status">
+            <option value="">Status</option>
+            <option value="todo">To Do</option>
+            <option value="inprogress">In Progress</option>
+            <option value="done">Done</option>
+          </select>
+        </td>
+
+        <td>
+          <select formControlName="assignedUser">
+            <option value="">Users</option>
+            <option *ngFor="let user of userList" [value]="user">
+              {{ user }}
+            </option>
+          </select>
+        </td>
+        <td>
+          <button>Submit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

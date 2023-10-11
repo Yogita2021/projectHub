@@ -1,0 +1,43 @@
+<div class="loginForm">
+  <div class="signUp">
+    <h1>Add Project Here...</h1>
+    <form
+      #projectForm="ngForm"
+      (click)="addproject(projectForm.value)"
+      class="Common-Form"
+    >
+      <input
+        class="form-input"
+        ngModel
+        name="name"
+        type="text"
+        placeholder="Enter Project Name"
+      />
+      <input
+        class="form-input"
+        ngModel
+        name="description"
+        type="text"
+        placeholder="Enter project description"
+      />
+      <label for="endDate">Project Start Date:</label>
+      <input
+        class="form-input"
+        ngModel
+        name="startDate"
+        type="date"
+        placeholder="Enter startDate"
+      />
+      <label for="endDate">Project End Date:</label>
+      <input
+        class="form-input"
+        ngModel
+        name="endDate"
+        type="date"
+        placeholder="Enter EndDate"
+      />
+
+      <button class="form-button">Submit</button>
+    </form>
+  </div>
+</div>

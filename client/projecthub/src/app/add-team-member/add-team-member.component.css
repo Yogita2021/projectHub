@@ -1,0 +1,41 @@
+h1 {
+  display: block;
+  font-size: 2em;
+  text-align: center;
+  margin-top: 50px;
+  color: blueviolet;
+  font-weight: bold;
+}
+.addteam1 {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 80px;
+  color: blueviolet;
+}
+.teamCommon-Form {
+  text-align: center;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  width: 300px;
+}
+.teamform-input {
+  height: 35px;
+  margin-bottom: 20px;
+  /* padding-left: 10px; */
+  padding: 5px 70px;
+  border: 1px solid blueviolet;
+  color: blueviolet;
+}
+.teamform-button {
+  height: 35px;
+  border: 1px solid blueviolet;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: blueviolet;
+  color: white;
+}
+select,
+label {
+  margin: 20px;
+}

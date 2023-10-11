@@ -1,0 +1,29 @@
+<div class="addteam1">
+  <h1>Add Team members...</h1>
+  <form
+    [formGroup]="teamMemberForm"
+    (ngSubmit)="onSubmit()"
+    class="teamCommon-Form"
+  >
+    <div>
+      <input
+        type="text"
+        id="teamName"
+        class="teamform-input"
+        formControlName="teamName"
+        placeholder="Add team name"
+      />
+    </div>
+
+    <div>
+      <label for="selectedUser">Select Team Members</label>
+      <select id="selectedUser" formControlName="selectedUserIds" multiple>
+        <option *ngFor="let user of users" [value]="user._id">
+          {{ user.name }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" class="teamform-button">Add Team Member</button>
+  </form>
+</div>

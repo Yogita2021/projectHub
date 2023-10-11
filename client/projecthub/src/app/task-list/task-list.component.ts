@@ -18,7 +18,7 @@ export class TaskListComponent {
     // console.log('delete');
     this.tasks = this.tasks.filter((el: any) => el.id != task.id);
   }
-  showTask: boolean = false;
+  showTask: boolean = true;
   toggletask() {
     console.log('done');
     this.showTask = !this.showTask;

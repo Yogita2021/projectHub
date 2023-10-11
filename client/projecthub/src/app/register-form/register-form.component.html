@@ -1,0 +1,41 @@
+<div class="loginForm">
+  <div class="signUp">
+    <h1>Register Here...</h1>
+    <form
+      #signUpForm="ngForm"
+      (ngSubmit)="signUp(signUpForm.value)"
+      class="Common-Form"
+    >
+      <input
+        class="form-input"
+        ngModel
+        name="name"
+        type="text"
+        placeholder="Enter Name"
+      />
+      <input
+        class="form-input"
+        ngModel
+        name="email"
+        type="text"
+        placeholder="Enter Email"
+      />
+      <input
+        class="form-input"
+        ngModel
+        name="password"
+        type="password"
+        placeholder="Enter Password"
+      />
+      <input
+        class="form-input"
+        ngModel
+        name="role"
+        type="text"
+        placeholder="Enter Role"
+      />
+      <button class="form-button">SignUp</button>
+    </form>
+    <p><span>Already register please </span><a routerLink="login">login!</a></p>
+  </div>
+</div>

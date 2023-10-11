@@ -1,0 +1,31 @@
+<div class="loginForm">
+  <div class="signUp">
+    <h1>Login Here...</h1>
+    <form
+      #loginForm="ngForm"
+      (ngSubmit)="loginfun(loginForm.value)"
+      class="Common-Form"
+    >
+      <input
+        class="form-input"
+        ngModel
+        name="email"
+        type="text"
+        placeholder="Enter Email"
+      />
+      <input
+        class="form-input"
+        ngModel
+        name="password"
+        type="password"
+        placeholder="Enter Password"
+      />
+
+      <button class="form-button">Login</button>
+    </form>
+    <p>
+      <span>Don't Have any account </span
+      ><a routerLink="signup">Register First!</a>
+    </p>
+  </div>
+</div>

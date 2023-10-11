@@ -1,9 +1,14 @@
-<h1>task list</h1>
-<button (click)="toggletask()">Task</button>
-<div *ngIf="showTask">
-  <div *ngFor="let task of tasks">
-    <h5>{{ task.name }}</h5>
-    <p>{{ task.description }}</p>
-    <button (click)="deletebtn(task)">delete Task</button>
+<div class="projectTitle">
+  <button class="btn1" (click)="toggletask()">></button>
+  <h3>Tasks...</h3>
+  <button class="btn1" style="margin-left: 20px">+</button>
+</div>
+<div class="projects" *ngIf="showTask">
+  <div class="lists" *ngFor="let task of tasks">
+    <ul>
+      <li class="name">{{ task.name }}</li>
+    </ul>
+    <!-- <p>{{ project.description }}</p>
+    <button (click)="deleteProject(project)">Delete project</button> -->
   </div>
 </div>

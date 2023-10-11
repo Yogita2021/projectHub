@@ -1,68 +1,33 @@
-// index.js
-
 const express = require("express");
-const session = require("express-session");
-const bcrypt = require("bcryptjs");
-const db = require("./db"); // Import the database connection
+
+const cors = require("cors");
+
 const app = express();
 
-// Middleware
+require("dotenv").config();
+
+const { connection } = require("./config/db");
+
+const { userRouter } = require("./routes/user.route");
+const { projectRouter } = require("./routes/project.route");
+const taskrouter = require("./routes/task.route");
+const teamrouter = require("./routes/team.route");
+app.use(cors());
+
 app.use(express.json());
-app.use(
-  session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+app.get("/", (req, res) => {
+  res.send("Welcome to MovieAPP Server!");
+});
 
-// Authentication middleware
-function authenticateUser(req, res, next) {
-  if (req.session && req.session.userId) {
-    return next(); // User is authenticated
-  } else {
-    res.status(401).json({ message: "Unauthorized" });
+app.use("/user", userRouter);
+app.use("/projects", projectRouter);
+app.use("/task", taskrouter);
+app.use("/team", teamrouter);
+app.listen(process.env.PORT, async () => {
+  try {
+    await connection;
+    console.log(`Connected to db at port ${process.env.PORT}`);
+  } catch (error) {
+    console.log(error);
   }
-}
-
-// Routes
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-
-  // Replace this with your actual user authentication logic
-  const query = "SELECT * FROM users WHERE username = ?";
-  db.query(query, [username], (err, results) => {
-    if (err) {
-      return res.status(500).json({ message: "Internal Server Error" });
-    }
-
-    if (results.length === 0) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-
-    const user = results[0];
-    if (bcrypt.compareSync(password, user.password)) {
-      req.session.userId = user.id; // Store user ID in the session
-      return res.json({ message: "Logged in successfully" });
-    } else {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
-  });
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.json({ message: "Logged out successfully" });
-});
-
-app.get("/user", authenticateUser, (req, res) => {
-  // Access authenticated user's data here
-  // You can fetch user data from the database using req.session.userId
-  res.json({ message: "Authenticated user data" });
-});
-
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
 });
