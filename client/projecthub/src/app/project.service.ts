@@ -18,14 +18,6 @@ export class ProjectService {
   }
 
   // Method to update project details by ID
-  updateProject(id: number, updatedProject: any): void {
-    const projectIndex = this.projects.findIndex(
-      (project) => project.id === id
-    );
-    if (projectIndex !== -1) {
-      this.projects[projectIndex] = updatedProject;
-    }
-  }
 
   // Method to delete a project by ID
   deleteProject(id: number): void {

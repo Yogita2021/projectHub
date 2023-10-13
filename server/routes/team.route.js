@@ -71,5 +71,20 @@ teamrouter.get("/:teamId", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+teamrouter.delete("/:teamMemberId", async (req, res) => {
+  try {
+    const teamMemberId = req.params.teamMemberId;
+    const deletedTeamMember = await TeamMember.findByIdAndRemove(teamMemberId);
+
+    if (!deletedTeamMember) {
+      return res.status(404).json({ message: "Team Member not found" });
+    }
+
+    res.status(200).json({ message: "Team Member deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting Team Member:", error);
+    res.status(500).json({ error: "Unable to delete Team Member" });
+  }
+});
 
 module.exports = teamrouter;

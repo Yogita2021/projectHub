@@ -1,0 +1,12 @@
+<!-- update-task.component.html -->
+<form [formGroup]="updateTaskForm" (submit)="onSubmit()">
+  <input formControlName="title" type="text" placeholder="Title" />
+  <textarea formControlName="description" placeholder="Description"></textarea>
+  <input formControlName="dueDate" type="date" placeholder="Due Date" />
+  <input formControlName="priority" type="text" placeholder="Priority" />
+  <input formControlName="status" type="text" placeholder="Status" />
+
+  <!-- Add fields for assignedUser, project, team, etc. if needed -->
+
+  <button type="submit">Update Task</button>
+</form>

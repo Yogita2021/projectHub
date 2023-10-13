@@ -23,6 +23,7 @@ export class TeamServiceService {
   // }
 
   addTask(data: any): void {
+    console.log('task data from users', data);
     const userStore = localStorage.getItem('user');
     const userData = userStore && JSON.parse(userStore);
     const token = userData.token;
@@ -39,17 +40,24 @@ export class TeamServiceService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Task added successfully');
-          // this.router.navigate(['']);
+          this.router.navigate(['']);
         } else {
           alert('Failed to add task');
         }
       });
   }
 
-  getTasks(): Observable<any> {
-    return this.http.get<any[]>('http://localhost:3000/task/tasks');
+  getTask(teamId: any): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/task/${teamId}`);
   }
-
+  updateTask(taskId: string, updatedTaskData: any): Observable<any> {
+    // Send a PUT request to update the task
+    const url = `http://localhost:3000/tasks/${taskId}`;
+    return this.http.put(url, updatedTaskData);
+  }
+  getProject(projectId: any) {
+    return this.http.get<any[]>(`http://localhost:3000/projects/${projectId}`);
+  }
   addTeamMember(teamName: string, selectedUserIds: number[]): void {
     const userStore = localStorage.getItem('user');
     const userData = userStore && JSON.parse(userStore);
@@ -77,5 +85,9 @@ export class TeamServiceService {
           alert('Failed to create project');
         }
       });
+  }
+  updateProject(projectId: string, updatedProjectData: any): Observable<any> {
+    const url = `http://localhost:3000/projects/${projectId}`;
+    return this.http.put(url, updatedProjectData);
   }
 }

@@ -1,18 +1,5 @@
 const mongoose = require("mongoose");
 
-// Sub-task schema
-// const subTaskSchema = new mongoose.Schema({
-//   title: String,
-//   description: String,
-//   dueDate: Date,
-//   priority: String,
-//   status: String,
-//   assignedTeamMembers: [
-//     { type: mongoose.Schema.Types.ObjectId, ref: "userData" },
-//   ], // Reference to User schema for assigned team members
-// });
-
-// Task schema
 const taskSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -22,9 +9,27 @@ const taskSchema = new mongoose.Schema({
   dueDate: Date,
   priority: String,
   status: String,
-  assignedUser: [{ type: mongoose.Schema.Types.ObjectId, ref: "userData" }], // Reference to User schema for assigned team members
-  subTasks: String, // Array of sub-tasks
+  assignedUser: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "userData", // Reference to the User model
+    },
+  ],
+  project: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Projectlist", // Reference to the Projectlist model
+    },
+  ],
+  team: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TeamMember", // Reference to the TeamMember model
+    },
+  ],
+  // ... (other fields)
 });
 
 const Tasklist = mongoose.model("Task", taskSchema);
+
 module.exports = Tasklist;

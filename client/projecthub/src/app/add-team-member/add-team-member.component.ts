@@ -47,4 +47,5 @@ export class AddTeamMemberComponent implements OnInit {
     // Reset the form after submission (optional).
     this.teamMemberForm.reset();
   }
+  getProjects() {}
 }

@@ -15,6 +15,10 @@ import { FormModalComponent } from './form-modal/form-modal.component';
 import { TaskManagementComponent } from './task-management/task-management.component';
 import { AddTeamMemberComponent } from './add-team-member/add-team-member.component';
 import { FormAddteamComponent } from './form-addteam/form-addteam.component';
+import { FormAddTakComponent } from './form-add-tak/form-add-tak.component';
+import { CommonModule } from '@angular/common';
+import { UpdateProjectFormComponent } from './update-project-form/update-project-form.component';
+import { UpdateTaskComponent } from './update-task/update-task.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,9 @@ import { FormAddteamComponent } from './form-addteam/form-addteam.component';
     TaskManagementComponent,
     AddTeamMemberComponent,
     FormAddteamComponent,
+    FormAddTakComponent,
+    UpdateProjectFormComponent,
+    UpdateTaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +43,7 @@ import { FormAddteamComponent } from './form-addteam/form-addteam.component';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

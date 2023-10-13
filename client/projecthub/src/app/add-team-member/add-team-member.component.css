@@ -8,6 +8,10 @@ h1 {
 }
 .addteam1 {
   text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: 40%;
+  margin: auto;
+  padding: 10px;
   margin-bottom: 50px;
   margin-top: 80px;
   color: blueviolet;
@@ -34,6 +38,7 @@ h1 {
   font-size: 16px;
   background-color: blueviolet;
   color: white;
+  margin-bottom: 50px;
 }
 select,
 label {

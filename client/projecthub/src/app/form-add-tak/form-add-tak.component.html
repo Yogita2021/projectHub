@@ -1,0 +1,51 @@
+<div class="loginForm">
+  <div class="signUp">
+    <h1>Add Task...</h1>
+    <form [formGroup]="taskForm" class="Common-Form">
+      <input
+        class="form-input"
+        formControlName="title"
+        type="text"
+        placeholder="Enter task"
+      />
+
+      <input
+        class="form-input"
+        formControlName="description"
+        type="text"
+        placeholder="description"
+      />
+
+      <label for="dueDate">dueDate</label>
+      <input class="form-input" formControlName="dueDate" type="date" />
+
+      <select formControlName="priority">
+        <option value="" disabled>Priority</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+
+      <select formControlName="status">
+        <option value="" disabled>Status</option>
+        <option value="todo">To Do</option>
+        <option value="inprogress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+      <select formControlName="team" (click)="onTeamSelect($event)">
+        <option value="" disabled>Teams</option>
+        <option *ngFor="let team of teams" [value]="team._id">
+          {{ team.teamName }}
+        </option>
+      </select>
+      <select formControlName="assignedUser">
+        <option value="" disabled>Users</option>
+        <option *ngFor="let user of userList" [value]="user._id">
+          {{ user.name }}
+        </option>
+      </select>
+
+      <button class="form-button" (click)="onSubmit()">Submit</button>
+    </form>
+  </div>
+</div>

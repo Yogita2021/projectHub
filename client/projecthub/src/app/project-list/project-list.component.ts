@@ -4,6 +4,7 @@ import { tasklist } from '../data.type';
 import { TeamServiceService } from '../services/team-service.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
@@ -17,23 +18,30 @@ export class ProjectListComponent implements OnInit {
   showTaskForm: boolean = false;
   taskDetails: string = '';
   teamId: string = '';
+  projectId: string = '';
   userList: any[] = [];
   userData: any;
   alltasks: any[] = [];
+  getteamId: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-    private task: TeamServiceService
+    private task: TeamServiceService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadTasks();
-    this.teamId = '';
+    // this.loadTasks(this.selectedTaskMembers);
+
+    this.getteamId = '';
+    console.log('yugs', this.teamId);
     this.http
       .get<any>('http://localhost:3000/projects/allProjects')
       .subscribe((data) => {
         console.log(data.ProjectListData);
         this.projects = data.ProjectListData;
+
+        // this.projectId = this.projects._id;
         if (this.projects.length > 0) {
           this.selectedProject = this.projects[0]; // Select the first project by default
         }
@@ -47,7 +55,9 @@ export class ProjectListComponent implements OnInit {
       if (this.teams.length > 0) {
         this.selectedTeams = this.teams[0]; // Select the first project by default
         this.userList = this.teams[0].userIds;
+        this.teamId = this.teams[0]._id;
         console.warn('hello', this.userList);
+        this.loadTasks(this.teamId);
       }
     });
 
@@ -74,21 +84,26 @@ export class ProjectListComponent implements OnInit {
 
   selectProject(projects: any) {
     this.selectedProject = projects;
+    console.log('select me as a project', projects);
+    this.projectId = projects._id;
+    // console.log('Hi i am projectid', this.selectedProject._id);
   }
 
   selectTeams(teams: any) {
     console.log('Selected Team:', teams);
     this.selectedTeams = teams;
+
     // console.log(teams);
     this.selectedTaskMembers = teams._id;
-    console.log(this.selectedTeams);
+    console.log('hi I am selected team', this.selectedTeams);
     this.teamId = teams._id;
-    console.log(this.teamId);
+    console.log('hello I am teamId', this.teamId);
     // Fetch and update the usernames for assigned users
-    this.fetchUsernames(this.selectedTaskMembers);
+    this.fetchUsernames(this.teamId);
+    this.loadTasks(this.teamId);
   }
 
-  fetchUsernames(teamId: string[]) {
+  fetchUsernames(teamId: string = '') {
     // Make an HTTP POST request to your backend API to fetch usernames based on userIds
     // Replace 'http://localhost:3000' with your actual backend API URL
     this.http
@@ -126,21 +141,59 @@ export class ProjectListComponent implements OnInit {
   onSubmit() {
     // Get the form values
     const formData = this.taskForm.value;
-
+    formData.project = this.selectedProject._id;
+    console.log('Hi i am projectid', this.selectProject);
     // Make an HTTP POST request to your backend API
     this.task.addTask(formData);
     this.taskForm.reset();
-    window.location.reload();
+    // window.location.reload();
   }
-  loadTasks(): void {
-    this.task.getTasks().subscribe((data: tasklist) => {
-      console.log('hello123', data.taskLists);
-      // Now, data.taskLists should contain the array of tasks
-      this.alltasks = data.taskLists; // Assuming this.alltasks is where you want to store the tasks
-    });
+  loadTasks(teamId: string): void {
+    this.http.get<any>(`http://localhost:3000/task/tasks/${teamId}`).subscribe(
+      (data) => {
+        this.alltasks = data.taskLists;
+        console.log('Loaded data', data);
+      },
+      (error) => {
+        alert('No task assigned to this team Please Add task');
+        // this.router.navigate(['addtask']);
+        console.error('Error loading tasks:', error);
+        // Handle the error, e.g., show an error message to the user
+      }
+    );
+  }
+
+  deletetask(taskId: string): void {
+    this.http
+      .delete<any>(`http://localhost:3000/task/tasks/${taskId}`)
+      .subscribe((data) => {
+        // Remove the deleted task from alltasks
+        this.alltasks = this.alltasks.filter((task) => task._id !== taskId);
+      });
   }
 
   selectedTaskMembers: any[] = [];
-
+  deleteProject(projectId: string): void {
+    this.http
+      .delete<any>(`http://localhost:3000/projects/${projectId}`)
+      .subscribe((data) => {
+        // Remove the deleted task from alltasks
+        console.log(data);
+        alert(data.message);
+        this.projects = this.projects.filter(
+          (project) => project._id !== projectId
+        );
+      });
+  }
+  deleteTeam(teamId: string): void {
+    this.http
+      .delete<any>(`http://localhost:3000/team/${teamId}`)
+      .subscribe((data) => {
+        // Remove the deleted task from alltasks
+        console.log(data);
+        alert(data.message);
+        this.teams = this.teams.filter((project) => project._id !== teamId);
+      });
+  }
   // ...
 }
