@@ -8,7 +8,7 @@ Welcome to projecthub, where you can create projects assign teams to it and also
 
 ## **Platform Access**
 
-Access the ExploreNature platform through :https://652c161444099d15fc46238d--cheerful-kashata-aafe16.netlify.app/register
+Access the ExploreNature platform through :https://652c161444099d15fc46238d--cheerful-kashata-aafe16.netlify.app
 
 ## **Key Features**
 
