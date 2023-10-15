@@ -48,7 +48,7 @@ export class UpdateProjectFormComponent implements OnInit {
         alert(data.message);
 
         // After a successful update, navigate back to the project details page
-        this.router.navigate(['']);
+        this.router.navigate(['home']);
       });
   }
 }

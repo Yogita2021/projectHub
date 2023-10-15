@@ -30,6 +30,6 @@ export class NavbarComponent implements OnInit {
   }
   userlogout() {
     localStorage.removeItem('user');
-    this.route.navigate(['/signup']);
+    this.route.navigate(['/register']);
   }
 }

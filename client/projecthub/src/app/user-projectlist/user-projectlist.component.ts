@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-project-list',
-  templateUrl: './project-list.component.html',
-  styleUrls: ['./project-list.component.css'],
+  selector: 'app-user-projectlist',
+  templateUrl: './user-projectlist.component.html',
+  styleUrls: ['./user-projectlist.component.css'],
 })
-export class ProjectListComponent implements OnInit {
+export class UserProjectlistComponent {
   projects: any[] = [];
   selectedProject: any;
   selectedTeams: any;
@@ -19,6 +19,7 @@ export class ProjectListComponent implements OnInit {
   taskDetails: string = '';
   teamId: string = '';
   projectId: string = '';
+  userId: string = '';
   userList: any[] = [];
   userData: any;
   alltasks: any[] = [];
@@ -32,7 +33,11 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit(): void {
     // this.loadTasks(this.selectedTaskMembers);
-
+    const userStore = localStorage.getItem('user');
+    const userData = userStore && JSON.parse(userStore);
+    this.userId = userData.user._id;
+    this.getteamlist(this.userId);
+    this.loadTasks(this.userId, this.teamId);
     this.getteamId = '';
     console.log('yugs', this.teamId);
     this.http
@@ -47,21 +52,21 @@ export class ProjectListComponent implements OnInit {
         }
       });
     // get teams
-    this.http
-      .get<any>('https://projecthub-m5jg.onrender.com/team/teams')
-      .subscribe((data) => {
-        console.log(data.teams);
-        this.teams = data.teams;
-        // this.userData = data.teams.teamName;
-        console.log('hiiii', data.teams);
-        if (this.teams.length > 0) {
-          this.selectedTeams = this.teams[0]; // Select the first project by default
-          this.userList = this.teams[0].userIds;
-          this.teamId = this.teams[0]._id;
-          console.warn('hello', this.userList);
-          // this.loadTasks(this.teamId);
-        }
-      });
+    // this.http
+    //   .get<any>(`http://localhost:3000/team/teams/${this.userId}`)
+    //   .subscribe((data) => {
+    //     console.log(data.teams);
+    //     this.teams = data.teams;
+    //     // this.userData = data.teams.teamName;
+    //     console.log('hiiiijjjjjjjjjjj', data.teams);
+    //     if (this.teams.length > 0) {
+    //       this.selectedTeams = this.teams[0]; // Select the first project by default
+    //       this.userList = this.teams[0];
+    //       this.teamId = this.teams[0]._id;
+    //       console.warn('hello', this.userList);
+    //       this.loadTasks(this.teamId);
+    //     }
+    //   });
 
     const formControls: any = {};
     this.schemaKeys.forEach((key) => {
@@ -97,25 +102,51 @@ export class ProjectListComponent implements OnInit {
 
     // console.log(teams);
     this.selectedTaskMembers = teams._id;
-    console.log('hi I am selected team', this.selectedTeams);
+    // console.log('hi I am selected team', this.selectedTeams);
     this.teamId = teams._id;
-    console.log('hello I am teamId', this.teamId);
+    // console.log('hello I am teamId', this.teamId);
     // Fetch and update the usernames for assigned users
-    this.fetchUsernames(this.teamId);
-    this.loadTasks(this.teamId);
+    const userStore = localStorage.getItem('user');
+    const userData = userStore && JSON.parse(userStore);
+    this.userId = userData.user._id;
+    // console.log('USerDataaaaaaaaaa', this.userId);
+
+    // this.fetchUsernames(this.userId);/
+    this.loadTasks(this.userId, this.teamId);
   }
 
-  fetchUsernames(teamId: string = '') {
-    // Make an HTTP POST request to your backend API to fetch usernames based on userIds
-    // Replace 'http://localhost:3000' with your actual backend API URL
+  // fetchUsernames(userId: string = '') {
+  //   // Make an HTTP POST request to your backend API to fetch usernames based on userIds
+  //   // Replace 'http://localhost:3000' with your actual backend API URL
+  //   this.http
+  //     .get<any>(`http://localhost:3000/team/teams/${userId}`)
+  //     .subscribe((data) => {
+  //       // Update the userList with usernames
+  //       // console.warn(data.userids);
+  //       // console.log(data.team.userIds);
+  //       console.log(data);
+  //       this.userList = data.team.teamName;
+  //       // console.log(this.userList);
+  // });
+  // }
+  getteamlist(userId: string = '') {
     this.http
-      .get<any>(`https://projecthub-m5jg.onrender.com/team/${this.teamId}`)
+      .get<any>(
+        `https://projecthub-m5jg.onrender.com/team/teams/${this.userId}`
+      )
       .subscribe((data) => {
-        // Update the userList with usernames
-        // console.warn(data.userids);
-        // console.log(data.team.userIds);
-        this.userList = data.team.userIds;
-        console.log(this.userList);
+        console.log(data.teams);
+        this.teams = data.teams;
+        // this.userData = data.teams.teamName;
+        console.log('hiiiijjjjjjjjjjj', data.teams);
+        if (this.teams.length > 0) {
+          this.selectedTeams = this.teams[0]; // Select the first project by default
+          this.userList = this.teams[0];
+          this.teamId = this.teams[0]._id;
+          console.warn('hello', this.userList);
+          this.loadTasks(this.userId, this.teamId);
+          // this.loadTasks(this.teamId);
+        }
       });
   }
   toggleTaskForm() {
@@ -150,16 +181,17 @@ export class ProjectListComponent implements OnInit {
     this.taskForm.reset();
     // window.location.reload();
   }
-  loadTasks(teamId: string): void {
+  loadTasks(userId: string, teamId: string): void {
     this.http
-      .get<any>(`https://projecthub-m5jg.onrender.com/task/tasks/${teamId}`)
+      .get<any>(`https://projecthub-m5jg.onrender.com/task/${userId}/${teamId}`)
       .subscribe(
         (data) => {
-          this.alltasks = data.taskLists;
-          console.log('Loaded data', data);
+          this.alltasks = data.tasks;
+          // co
+          console.log('Loaded hi data', data.tasks);
         },
         (error) => {
-          alert('No task assigned to this team Please Add task');
+          // alert('No task assigned to this team Please Add task');
           // this.router.navigate(['addtask']);
           console.error('Error loading tasks:', error);
           // Handle the error, e.g., show an error message to the user
@@ -201,3 +233,7 @@ export class ProjectListComponent implements OnInit {
   }
   // ...
 }
+
+// export class ProjectListComponent implements OnInit {
+
+// }

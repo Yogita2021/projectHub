@@ -17,7 +17,7 @@ export class AddProjectService {
     const headers = new HttpHeaders().set('Authorization', `${token}`);
 
     this.http
-      .post('http://localhost:3000/projects/create', data, {
+      .post('https://projecthub-m5jg.onrender.com/projects/create', data, {
         observe: 'response',
         headers: headers,
       })
@@ -26,7 +26,7 @@ export class AddProjectService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Project created successfully');
-          this.router.navigate(['']);
+          this.router.navigate(['home']);
         } else {
           alert('Failed to create project');
         }

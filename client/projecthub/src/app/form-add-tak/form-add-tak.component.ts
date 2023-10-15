@@ -33,10 +33,12 @@ export class FormAddTakComponent implements OnInit {
 
   ngOnInit(): void {
     // Populate this.userList with user data from your backend
-    this.http.get<any>('http://localhost:3000/team/teams').subscribe((data) => {
-      console.log(data.teams);
-      this.teams = data.teams;
-    });
+    this.http
+      .get<any>('https://projecthub-m5jg.onrender.com/team/teams')
+      .subscribe((data) => {
+        console.log(data.teams);
+        this.teams = data.teams;
+      });
   }
 
   onSubmit() {
@@ -78,7 +80,7 @@ export class FormAddTakComponent implements OnInit {
     // Make an HTTP POST request to your backend API to fetch usernames based on userIds
     // Replace 'http://localhost:3000' with your actual backend API URL
     this.http
-      .get<any>(`http://localhost:3000/team/${this.teamId}`)
+      .get<any>(`https://projecthub-m5jg.onrender.com/team/${this.teamId}`)
       .subscribe((data) => {
         // Update the userList with usernames
         // console.warn(data.userids);

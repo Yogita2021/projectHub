@@ -8,34 +8,51 @@ import { AddTeamMemberComponent } from './add-team-member/add-team-member.compon
 import { FormAddTakComponent } from './form-add-tak/form-add-tak.component';
 import { UpdateProjectFormComponent } from './update-project-form/update-project-form.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
+import { AuthGuard } from './auth.guard';
+import { UserProjectlistComponent } from './user-projectlist/user-projectlist.component';
+import { UserhomeComponent } from './userhome/userhome.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 // import { UpdatetaskComponent } from './updatetask/updatetask.component';
 
 const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'register' }, // Redirect to the registration page
+  { path: 'register', component: RegisterFormComponent },
+
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+
   {
-    path: '',
-    component: HomeComponent,
+    path: 'userdashbord',
+    component: UserhomeComponent,
+    // canActivate: [AuthGuard],
   },
   {
     path: 'signup',
     component: RegisterFormComponent,
   },
-  { path: 'update-task/:taskId', component: UpdateTaskComponent },
   {
-    path: 'signup/login',
+    path: 'homepage',
+    component: ProjectListComponent,
+  },
+  { path: 'home/update-task/:taskId', component: UpdateTaskComponent },
+  {
+    path: 'register/login',
     component: LoginFormComponent,
   },
-
   {
-    path: 'addproject',
+    path: 'register/login/signup',
+    component: RegisterFormComponent,
+  },
+  {
+    path: 'home/addproject',
     component: FormModalComponent,
   },
   {
-    path: 'addteam',
+    path: 'home/addteam',
     component: AddTeamMemberComponent,
   },
 
   {
-    path: 'addtask',
+    path: 'home/addtask',
     component: FormAddTakComponent,
   },
   { path: 'update-project/:id', component: UpdateProjectFormComponent },
@@ -51,6 +68,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  providers: [
+    AuthGuard, // Add AuthGuard to the providers array
+    // Other services and providers
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

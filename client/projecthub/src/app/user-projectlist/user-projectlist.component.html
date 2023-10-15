@@ -1,0 +1,147 @@
+<div class="mainProjectContainer">
+  <div id="ProjectTitles">
+    <div class="projectTitle">
+      <button class="btn1" id="greenbtns" (click)="toggleProject()">></button>
+      <h3>Projects...</h3>
+      <!-- <button class="btn1" id="greenbtns">
+        <a id="greenbtns" routerLink="addproject">+</a>
+      </button> -->
+    </div>
+    <div class="projects" *ngIf="showProject">
+      <div
+        class="lists"
+        *ngFor="let project of projects"
+        (click)="selectProject(project)"
+      >
+        <ul class="ultag">
+          <li class="name">{{ project.name }}</li>
+          <!-- <button
+            class="btn1"
+            id="detbtns"
+            (click)="deleteProject(project._id)"
+          >
+            -
+          </button> -->
+        </ul>
+      </div>
+    </div>
+    <!-- team -->
+    <div class="projectTitle">
+      <button id="greenbtns" class="btn1" (click)="toggleTeam()">></button>
+      <h3>Teams...</h3>
+      <!-- <button id="greenbtns" class="btn1">
+        <a id="greenbtns" routerLink="addteam">+</a>
+      </button> -->
+    </div>
+    <div class="projects" *ngIf="showTeams">
+      <div class="lists" *ngFor="let team of teams">
+        <ul class="ultag">
+          <li class="name" (click)="selectTeams(team)">{{ team.teamName }}</li>
+          <!-- <button class="btn1" id="detbtns" (click)="deleteTeam(team._id)">
+            -
+          </button> -->
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="showprojects">
+    <div class="selected-project" *ngIf="selectedProject">
+      <h1 class="title">📝Project: {{ selectedProject.name }}</h1>
+      <div class="projectinfo">
+        <p><b>Description: </b>{{ selectedProject.description }}</p>
+        <p>
+          <b>Start Date: </b>
+          {{ selectedProject.startDate | date : "yyyy-MM-dd" }}
+        </p>
+      </div>
+      <div class="projectinfo2">
+        <div *ngIf="selectedTeams">
+          <p><b>Selected Team: </b> {{ selectedTeams.teamName }}</p>
+        </div>
+
+        <div>
+          <p>
+            <b>End Date: </b>{{ selectedProject.endDate | date : "yyyy-MM-dd" }}
+          </p>
+        </div>
+      </div>
+      <div class="projectbtns">
+        <!-- <button class="pbtn" id="greenbtns">
+          <a id="greenbtns" routerLink="addproject">Add Project</a>
+        </button> -->
+        <!-- <button class="pbtn"><a routerLink="addtask">update Project</a></button> -->
+        <!-- <button
+          class="pbtn"
+          id="greenbtns"
+          [routerLink]="['/update-project', selectedProject._id]"
+        >
+          Update Project
+        </button> -->
+
+        <!-- <button class="pbtn" (click)="deleteProject(selectedProject._id)">
+          Delete Project
+        </button> -->
+      </div>
+    </div>
+
+    <!-- Add Task Form -->
+    <!-- <app-task-management *ngIf="showTaskForm"></app-task-management> -->
+
+    <!-- Display other details of the selected project here -->
+    <!-- <app-task-list></app-task-list> -->
+    <div class="task-list">
+      <div id="taskbtn">
+        <h1>All Task</h1>
+      </div>
+      <!-- <button id="greenbtns" class="pbtn2">
+        <a id="greenbtns" routerLink="addtask">Add task</a>
+      </button> -->
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Team</th>
+            <!-- <th>Assigned Team Members</th> -->
+            <!-- <th>Update task</th> -->
+            <!-- <th>Delete Task</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of alltasks">
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.dueDate | date : "yyyy-MM-dd" }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.status }}</td>
+            <td>
+              <p *ngFor="let member of task.team">{{ member.teamName }}</p>
+            </td>
+            <!-- <td>
+              <button [routerLink]="['/update-task', task._id]">
+                Update Task
+              </button>
+            </td> -->
+
+            <!-- <td>
+              <ul>
+                <li class="tasklistli" *ngFor="let member of task.assignedUser">
+                  {{ member.name }}
+                </li>
+              </ul>
+            </td> -->
+
+            <!-- <td>
+              <button id="delbtn" (click)="deletetask(task._id)">
+                Delete Task
+              </button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -86,6 +86,47 @@ taskrouter.put("/:taskId", async (req, res) => {
     res.status(500).json({ error: "Unable to update task" });
   }
 });
+
+// taskrouter.get("/:userId", async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+
+//     // Find tasks with the specified assignedUser's userId
+//     const tasks = await Tasklist.find({ assignedUser: userId })
+//       .populate("assignedUser")
+//       .select("title description dueDate priority status team ");
+
+//     res.status(200).json({ isError: false, tasks });
+//   } catch (error) {
+//     res.status(500).json({
+//       isError: true,
+//       message: error.message,
+//     });
+//   }
+// });
+taskrouter.get("/:userId/:teamId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const teamId = req.params.teamId;
+
+    // Find tasks with the specified assignedUser's userId and teamId
+    const tasks = await Tasklist.find({
+      assignedUser: userId,
+      team: teamId,
+    })
+      .populate("assignedUser")
+      .populate("team")
+      .select("title description dueDate priority status team ");
+
+    res.status(200).json({ isError: false, tasks });
+  } catch (error) {
+    res.status(500).json({
+      isError: true,
+      message: error.message,
+    });
+  }
+});
+
 // Delete a task by ID
 taskrouter.delete("/tasks/:taskId", async (req, res) => {
   try {

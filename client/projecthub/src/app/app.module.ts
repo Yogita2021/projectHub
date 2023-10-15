@@ -19,6 +19,8 @@ import { FormAddTakComponent } from './form-add-tak/form-add-tak.component';
 import { CommonModule } from '@angular/common';
 import { UpdateProjectFormComponent } from './update-project-form/update-project-form.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
+import { UserProjectlistComponent } from './user-projectlist/user-projectlist.component';
+import { UserhomeComponent } from './userhome/userhome.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { UpdateTaskComponent } from './update-task/update-task.component';
     FormAddTakComponent,
     UpdateProjectFormComponent,
     UpdateTaskComponent,
+    UserProjectlistComponent,
+    UserhomeComponent,
   ],
   imports: [
     BrowserModule,

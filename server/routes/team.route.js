@@ -86,5 +86,21 @@ teamrouter.delete("/:teamMemberId", async (req, res) => {
     res.status(500).json({ error: "Unable to delete Team Member" });
   }
 });
+teamrouter.get("/teams/:userId", async (req, res) => {
+  const userId = req.params.userId;
 
+  try {
+    // Find teams that include the specified user ID
+    const teams = await TeamMember.find({ userIds: userId })
+      .select("teamName")
+      .populate("userIds");
+    console.log(teams);
+    res.status(200).json({ isError: false, teams });
+  } catch (error) {
+    res.status(500).json({
+      isError: true,
+      message: "An error occurred while fetching teams",
+    });
+  }
+});
 module.exports = teamrouter;

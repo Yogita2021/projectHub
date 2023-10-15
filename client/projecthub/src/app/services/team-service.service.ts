@@ -8,11 +8,15 @@ import { Observable } from 'rxjs';
 export class TeamServiceService {
   constructor(private http: HttpClient, private router: Router) {}
   getTeams() {
-    return this.http.get<any[]>('http://loacalhost:3000/team/teams');
+    return this.http.get<any[]>(
+      'https://projecthub-m5jg.onrender.com/team/teams'
+    );
   }
 
   getUsers() {
-    return this.http.get<any[]>('http://localhost:3000/user/users');
+    return this.http.get<any[]>(
+      'https://projecthub-m5jg.onrender.com/user/users'
+    );
   }
 
   // addTeamMember(teamId: string, memberName: string) {
@@ -31,7 +35,7 @@ export class TeamServiceService {
     const headers = new HttpHeaders().set('Authorization', `${token}`);
 
     this.http
-      .post('http://localhost:3000/task/create', data, {
+      .post('https://projecthub-m5jg.onrender.com/task/create', data, {
         observe: 'response',
         headers: headers,
       })
@@ -40,7 +44,7 @@ export class TeamServiceService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Task added successfully');
-          this.router.navigate(['']);
+          this.router.navigate(['home']);
         } else {
           alert('Failed to add task');
         }
@@ -48,15 +52,19 @@ export class TeamServiceService {
   }
 
   getTask(teamId: any): Observable<any> {
-    return this.http.get<any>(`http://localhost:3000/task/${teamId}`);
+    return this.http.get<any>(
+      `https://projecthub-m5jg.onrender.com/task/${teamId}`
+    );
   }
   updateTask(taskId: string, updatedTaskData: any): Observable<any> {
     // Send a PUT request to update the task
-    const url = `http://localhost:3000/tasks/${taskId}`;
+    const url = `https://projecthub-m5jg.onrender.com/tasks/${taskId}`;
     return this.http.put(url, updatedTaskData);
   }
   getProject(projectId: any) {
-    return this.http.get<any[]>(`http://localhost:3000/projects/${projectId}`);
+    return this.http.get<any[]>(
+      `https://projecthub-m5jg.onrender.com/projects/${projectId}`
+    );
   }
   addTeamMember(teamName: string, selectedUserIds: number[]): void {
     const userStore = localStorage.getItem('user');
@@ -71,7 +79,7 @@ export class TeamServiceService {
     const headers = new HttpHeaders().set('Authorization', `${token}`);
 
     this.http
-      .post('http://localhost:3000/team/addteam', data, {
+      .post('https://projecthub-m5jg.onrender.com/team/addteam', data, {
         observe: 'response',
         headers: headers,
       })
@@ -80,14 +88,14 @@ export class TeamServiceService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Team member added successfully');
-          this.router.navigate(['']);
+          this.router.navigate(['home']);
         } else {
           alert('Failed to create project');
         }
       });
   }
   updateProject(projectId: string, updatedProjectData: any): Observable<any> {
-    const url = `http://localhost:3000/projects/${projectId}`;
+    const url = `https://projecthub-m5jg.onrender.com/projects/${projectId}`;
     return this.http.put(url, updatedProjectData);
   }
 }
