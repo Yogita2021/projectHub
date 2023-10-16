@@ -1,6 +1,6 @@
 # projectHub
 
-deployedlink:https://652c161444099d15fc46238d--cheerful-kashata-aafe16.netlify.app
+deployedlink:https://652cea7d03f1d6069928e0f1--dancing-belekoy-3c590b.netlify.app
 
 ## **Introduction**
 
@@ -8,7 +8,7 @@ Welcome to projecthub, where you can create projects assign teams to it and also
 
 ## **Platform Access**
 
-Access the ExploreNature platform through :https://652c161444099d15fc46238d--cheerful-kashata-aafe16.netlify.app
+Access the ExploreNature platform through :https://652cea7d03f1d6069928e0f1--dancing-belekoy-3c590b.netlify.app
 
 ## **Key Features**
 
