@@ -1,12 +1,45 @@
 <!-- update-task.component.html -->
-<form [formGroup]="updateTaskForm" (submit)="onSubmit()">
-  <input formControlName="title" type="text" placeholder="Title" />
-  <textarea formControlName="description" placeholder="Description"></textarea>
-  <input formControlName="dueDate" type="date" placeholder="Due Date" />
-  <input formControlName="priority" type="text" placeholder="Priority" />
-  <input formControlName="status" type="text" placeholder="Status" />
+<div class="update-project-form">
+  <h1 id="h1">Update Task Details...</h1>
+  <form class="Common-Form" [formGroup]="updateTaskForm" (submit)="onSubmit()">
+    <label class="label" for="title">Title</label>
+    <input
+      class="form-input"
+      formControlName="title"
+      type="text"
+      placeholder="Title"
+    />
+    <label class="label" for="Description">Description</label>
+    <textarea
+      class="form-input"
+      formControlName="description"
+      placeholder="Description"
+    ></textarea>
+    <label class="label" for="dueDate">dueDate</label>
+    <input
+      class="form-input"
+      formControlName="dueDate"
+      type="date"
+      placeholder="Due Date"
+    />
 
-  <!-- Add fields for assignedUser, project, team, etc. if needed -->
+    <label class="label" for="priority">Priority</label>
+    <input
+      class="form-input"
+      formControlName="priority"
+      type="text"
+      placeholder="Priority"
+    />
+    <label class="label" for="Status">Status</label>
+    <input
+      class="form-input"
+      formControlName="status"
+      type="text"
+      placeholder="Status"
+    />
 
-  <button type="submit">Update Task</button>
-</form>
+    <!-- Add fields for assignedUser, project, team, etc. if needed -->
+
+    <button class="form-button" type="submit">Update Task</button>
+  </form>
+</div>

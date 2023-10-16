@@ -31,8 +31,6 @@ export class ProjectListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.loadTasks(this.selectedTaskMembers);
-
     this.getteamId = '';
     console.log('yugs', this.teamId);
     this.http
@@ -59,7 +57,7 @@ export class ProjectListComponent implements OnInit {
           this.userList = this.teams[0].userIds;
           this.teamId = this.teams[0]._id;
           console.warn('hello', this.userList);
-          // this.loadTasks(this.teamId);
+          this.loadTasks(this.teamId);
         }
       });
 
@@ -74,6 +72,7 @@ export class ProjectListComponent implements OnInit {
 
     // Fetch and update the usernames for assigned users
     // this.fetchUsernames(this.selectedTaskMembers);
+    // this.loadTasks(this.selectedTaskMembers);
   }
 
   // Show/hide project details
@@ -161,6 +160,7 @@ export class ProjectListComponent implements OnInit {
         (error) => {
           alert('No task assigned to this team Please Add task');
           // this.router.navigate(['addtask']);
+          this.alltasks = [];
           console.error('Error loading tasks:', error);
           // Handle the error, e.g., show an error message to the user
         }

@@ -33,7 +33,7 @@ const routes: Routes = [
     path: 'homepage',
     component: ProjectListComponent,
   },
-  { path: 'home/update-task/:taskId', component: UpdateTaskComponent },
+  { path: 'update-task/:id', component: UpdateTaskComponent },
   {
     path: 'register/login',
     component: LoginFormComponent,
@@ -43,16 +43,19 @@ const routes: Routes = [
     component: RegisterFormComponent,
   },
   {
-    path: 'home/addproject',
+    path: 'homepage/addproject',
     component: FormModalComponent,
   },
   {
-    path: 'home/addteam',
+    path: 'homepage/addteam',
     component: AddTeamMemberComponent,
   },
-
   {
-    path: 'home/addtask',
+    path: 'homepage/addtask',
+    component: FormAddTakComponent,
+  },
+  {
+    path: 'homepage/addtask',
     component: FormAddTakComponent,
   },
   { path: 'update-project/:id', component: UpdateProjectFormComponent },

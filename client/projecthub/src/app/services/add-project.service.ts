@@ -26,7 +26,9 @@ export class AddProjectService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Project created successfully');
-          this.router.navigate(['home']);
+          this.router.navigate(['homepage']);
+        } else if (result.status === 400) {
+          alert('Please select different projectName');
         } else {
           alert('Failed to create project');
         }

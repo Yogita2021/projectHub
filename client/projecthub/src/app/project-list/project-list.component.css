@@ -185,6 +185,9 @@ table {
   background-color: rgb(183, 106, 255);
   font-size: 16px;
 }
+#updatebtn:hover {
+  background-color: green;
+}
 .tasklistli {
   list-style: none;
 }

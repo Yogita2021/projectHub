@@ -44,22 +44,22 @@ export class TeamServiceService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Task added successfully');
-          this.router.navigate(['home']);
+          this.router.navigate(['homepage']);
         } else {
           alert('Failed to add task');
         }
       });
   }
 
-  getTask(teamId: any): Observable<any> {
+  getTask(taskId: any): Observable<any> {
     return this.http.get<any>(
-      `https://projecthub-m5jg.onrender.com/task/${teamId}`
+      `https://projecthub-m5jg.onrender.com/task/${taskId}`
     );
   }
-  updateTask(taskId: string, updatedTaskData: any): Observable<any> {
+  updateTask(taskId: string, updatedData: any): Observable<any> {
     // Send a PUT request to update the task
-    const url = `https://projecthub-m5jg.onrender.com/tasks/${taskId}`;
-    return this.http.put(url, updatedTaskData);
+    const url = `https://projecthub-m5jg.onrender.com/task/${taskId}`;
+    return this.http.put(url, updatedData);
   }
   getProject(projectId: any) {
     return this.http.get<any[]>(
@@ -88,7 +88,7 @@ export class TeamServiceService {
         console.log(result.status);
         if (result.status === 200) {
           alert('Team member added successfully');
-          this.router.navigate(['home']);
+          this.router.navigate(['homepage']);
         } else {
           alert('Failed to create project');
         }

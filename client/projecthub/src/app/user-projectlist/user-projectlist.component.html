@@ -106,7 +106,7 @@
             <th>Status</th>
             <th>Team</th>
             <!-- <th>Assigned Team Members</th> -->
-            <!-- <th>Update task</th> -->
+            <th>Update task</th>
             <!-- <th>Delete Task</th> -->
           </tr>
         </thead>
@@ -120,11 +120,11 @@
             <td>
               <p *ngFor="let member of task.team">{{ member.teamName }}</p>
             </td>
-            <!-- <td>
-              <button [routerLink]="['/update-task', task._id]">
+            <td>
+              <button id="updatebtn" [routerLink]="['/update-task', task._id]">
                 Update Task
               </button>
-            </td> -->
+            </td>
 
             <!-- <td>
               <ul>

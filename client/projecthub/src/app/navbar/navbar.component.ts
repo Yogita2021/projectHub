@@ -9,6 +9,7 @@ import { Route, Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   menuType: string = 'default';
   userName: string = '';
+  userRole: string = '';
   constructor(private route: Router) {}
   ngOnInit(): void {
     this.route.events.subscribe((val: any) => {
@@ -20,8 +21,13 @@ export class NavbarComponent implements OnInit {
           let userInfo = userData.user;
           console.log(userInfo.name);
           this.userName = userInfo.name;
-
-          this.menuType = 'user';
+          this.userRole = userInfo.role;
+          console.log('myrole', this.userRole);
+          if (this.userRole == 'user') {
+            this.menuType = 'user';
+          } else {
+            this.menuType = 'Admin';
+          }
         } else {
           this.menuType = 'default';
         }

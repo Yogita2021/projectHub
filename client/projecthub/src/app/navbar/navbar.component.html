@@ -10,6 +10,13 @@
       <li><a routerLink="signup">Login/signUp</a></li>
     </ul>
     <ul *ngSwitchCase="'user'">
+      <li><a routerLink="userdashbord">Home</a></li>
+      <li>
+        <a routerLink="signup">{{ userName }}</a>
+      </li>
+      <li><a (click)="userlogout()">Logout</a></li>
+    </ul>
+    <ul *ngSwitchCase="'Admin'">
       <li><a routerLink="homepage">Home</a></li>
       <li>
         <a routerLink="signup">{{ userName }}</a>
