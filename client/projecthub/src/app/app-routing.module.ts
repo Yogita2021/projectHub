@@ -47,7 +47,16 @@ const routes: Routes = [
     component: FormModalComponent,
   },
   {
+    path: 'home/addproject',
+    component: FormModalComponent,
+  },
+
+  {
     path: 'homepage/addteam',
+    component: AddTeamMemberComponent,
+  },
+  {
+    path: 'home/addteam',
     component: AddTeamMemberComponent,
   },
   {
