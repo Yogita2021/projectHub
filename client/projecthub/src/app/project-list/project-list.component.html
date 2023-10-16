@@ -120,11 +120,6 @@
             <td>
               <p *ngFor="let member of task.team">{{ member.teamName }}</p>
             </td>
-            <td>
-              <button id="updatebtn" [routerLink]="['/update-task', task._id]">
-                Update Task
-              </button>
-            </td>
 
             <td>
               <ul>
@@ -132,6 +127,11 @@
                   {{ member.name }}
                 </li>
               </ul>
+            </td>
+            <td>
+              <button id="updatebtn" [routerLink]="['/update-task', task._id]">
+                Update Task
+              </button>
             </td>
 
             <td>
